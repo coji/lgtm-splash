@@ -8,7 +8,6 @@ import {
   Box,
   Grid,
   GridItem,
-  Flex,
   Avatar,
   Stack,
   HStack,
@@ -97,29 +96,19 @@ const Home: NextPage = () => {
               spellCheck={false}
               {...register('query')}
             />
-            <Button type="submit">Search</Button>
+            <Button type="submit" isLoading={isLoading}>
+              Search
+            </Button>
           </HStack>
         </form>
 
-        <Grid
-          placeItems="center"
-          templateColumns={{
-            base: 'repeat(2,1fr)',
-            sm: 'repeat(2,1fr)',
-            md: 'repeat(3,1fr)',
-            lg: 'repeat(4,1fr)',
-            xl: 'repeat(4,1fr)',
-            '2xl': 'repeat(6,1fr)',
-          }}
-          gap="4"
-        >
-          {data &&
-            data.map((e) => (
-              <GridItem key={e.id}>
-                <PhotoCard photo={e}></PhotoCard>
-              </GridItem>
+        {data && (
+          <Box gap="4" style={{ columnCount: 3 }}>
+            {data.map((e) => (
+              <PhotoCard key={e.id} photo={e}></PhotoCard>
             ))}
-        </Grid>
+          </Box>
+        )}
       </Stack>
 
       <Box p="4" textAlign="center">

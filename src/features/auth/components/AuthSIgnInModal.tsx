@@ -6,7 +6,7 @@ import {
   ModalContent,
   ModalHeader,
   ModalOverlay,
-  UseModalProps,
+  UseModalProps
 } from '@chakra-ui/react'
 
 export const SignInModal: React.FC<UseModalProps> = (props) => {

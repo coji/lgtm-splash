@@ -1,7 +1,7 @@
 import { auth } from '~/libs/firebase'
 import {
   useAuthSignInWithRedirect,
-  useAuthSignOut,
+  useAuthSignOut
 } from '@react-query-firebase/auth'
 import { GoogleAuthProvider, OAuthProvider } from 'firebase/auth'
 
@@ -12,14 +12,14 @@ export const useAuthAction = () => {
   const signInWithGithub = async () => {
     const provider = new OAuthProvider('github.com')
     return authSignIn.mutate({
-      provider,
+      provider
     })
   }
 
   const signInWithGoogle = async () => {
     const provider = new GoogleAuthProvider()
     return authSignIn.mutate({
-      provider,
+      provider
     })
   }
 
@@ -28,6 +28,6 @@ export const useAuthAction = () => {
   return {
     signInWithGoogle,
     signInWithGithub,
-    signOut,
+    signOut
   }
 }

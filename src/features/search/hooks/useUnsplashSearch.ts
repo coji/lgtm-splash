@@ -9,7 +9,7 @@ export const useUnsplashSearch = (query: string | undefined) => {
       return await ky.get(`/api/search?q=${query}`).json<SearchResult>()
     },
     {
-      enabled: !!query,
+      enabled: !!query
     }
   )
 }

@@ -10,7 +10,7 @@ export const config = {
   storageBucket: 'lgtm-unsplash.appspot.com',
   messagingSenderId: '995471791086',
   appId: '1:995471791086:web:acf0643bf1248b3bb7b4ff',
-  measurementId: 'G-R0K6XSY8FP',
+  measurementId: 'G-R0K6XSY8FP'
 }
 
 const isEmulator = () => {

@@ -5,6 +5,6 @@ export const useAuth = () => {
   const currentUser = useAuthUser(['user'], auth, {})
   return {
     currentUser: currentUser.data,
-    isAuthChecking: currentUser.isLoading,
+    isAuthChecking: currentUser.isLoading
   }
 }

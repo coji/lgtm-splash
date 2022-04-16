@@ -16,7 +16,7 @@ export default async function handler(
   res: NextApiResponse<SearchResult>
 ) {
   const unsplash = createApi({
-    accessKey: String(process.env.UNSPLASH_API_ACCESS_KEY),
+    accessKey: String(process.env.UNSPLASH_API_ACCESS_KEY)
   })
 
   res.status(200).json(await getPhotos(unsplash, String(req.query.q)))

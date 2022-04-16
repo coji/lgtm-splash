@@ -1,15 +1,14 @@
-import { Link, Box, Image, AspectRatio } from '@chakra-ui/react'
+import { Box, Image } from '@chakra-ui/react'
 import type { SearchResult } from '~/pages/api/search'
-
-type Photo = SearchResult[0]
-
+import type { Photo } from '../interfaces/photo'
 interface PhotoCardProps {
   photo: Photo
+  onPostPhoto: (imageUrl: string) => void
 }
 
-export const PhotoCard: React.FC<PhotoCardProps> = ({ photo }) => {
+export const PhotoCard: React.FC<PhotoCardProps> = ({ photo, onPostPhoto }) => {
   return (
-    <Link isExternal href={photo.links.html}>
+    <Box onClick={() => onPostPhoto(photo.urls.small)}>
       <Image
         mb="4"
         alt="image"
@@ -17,6 +16,6 @@ export const PhotoCard: React.FC<PhotoCardProps> = ({ photo }) => {
         rounded="md"
         src={photo.urls.small}
       />
-    </Link>
+    </Box>
   )
 }

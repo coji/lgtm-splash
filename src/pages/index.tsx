@@ -6,8 +6,6 @@ import {
   Link,
   Heading,
   Box,
-  Grid,
-  GridItem,
   Avatar,
   Stack,
   HStack,
@@ -18,14 +16,15 @@ import {
   MenuList,
   MenuItem,
   Text,
-  CircularProgress,
+  CircularProgress
 } from '@chakra-ui/react'
 import { useAuth } from '~/features/auth/hooks/useAuth'
 import { useAuthAction } from '~/features/auth/hooks/useAuthAction'
 import { SignInButton } from '~/features/auth/components/AuthSIgnInButton'
 import { useUnsplashSearch } from '~/features/search/hooks/useUnsplashSearch'
 import { PhotoCard } from '~/features/search/components/PhotoCard'
-
+import type { Photo } from '~/features/search/interfaces/photo'
+import { usePosts } from '~/features/posts/hooks/usePosts'
 interface SearchFormProps {
   query: string
 }
@@ -36,9 +35,15 @@ const Home: NextPage = () => {
   const { register, handleSubmit } = useForm<SearchFormProps>()
   const [query, setQuery] = useState<string>()
   const { data, isLoading, error } = useUnsplashSearch(query)
+  const { mutate } = usePosts()
 
   const handleSearchSubmit = (values: SearchFormProps) => {
     setQuery(values.query)
+  }
+
+  const handlePostPhoto = (imageUrl: string) => {
+    console.log(imageUrl)
+    mutate({ imageUrl })
   }
 
   return (
@@ -105,7 +110,11 @@ const Home: NextPage = () => {
         {data && (
           <Box gap="4" style={{ columnCount: 3 }}>
             {data.map((e) => (
-              <PhotoCard key={e.id} photo={e}></PhotoCard>
+              <PhotoCard
+                key={e.id}
+                photo={e}
+                onPostPhoto={handlePostPhoto}
+              ></PhotoCard>
             ))}
           </Box>
         )}

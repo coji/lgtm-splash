@@ -1,8 +1,12 @@
 import type { NextPage } from 'next'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import {
   Container,
   Heading,
   Box,
+  Grid,
+  GridItem,
   Flex,
   Avatar,
   Stack,
@@ -19,10 +23,23 @@ import {
 import { useAuth } from '~/features/auth/hooks/useAuth'
 import { useAuthAction } from '~/features/auth/hooks/useAuthAction'
 import { SignInButton } from '~/features/auth/components/AuthSIgnInButton'
+import { useUnsplashSearch } from '~/features/search/hooks/useUnsplashSearch'
+import { PhotoCard } from '~/features/search/components/PhotoCard'
+
+interface SearchFormProps {
+  query: string
+}
 
 const Home: NextPage = () => {
   const { currentUser, isAuthChecking } = useAuth()
   const { signOut } = useAuthAction()
+  const { register, handleSubmit } = useForm<SearchFormProps>()
+  const [query, setQuery] = useState<string>()
+  const { data, isLoading, error } = useUnsplashSearch(query)
+
+  const handleSearchSubmit = (values: SearchFormProps) => {
+    setQuery(values.query)
+  }
 
   return (
     <Container maxWidth="container.lg" minH="100vh">
@@ -65,12 +82,21 @@ const Home: NextPage = () => {
           )}
         </HStack>
 
-        <HStack align="baseline">
-          <Input id="search" placeholder="Search" />
-          <Button>Search</Button>
-        </HStack>
+        <form onSubmit={handleSubmit(handleSearchSubmit)}>
+          <HStack align="baseline">
+            <Input id="query" placeholder="Search" {...register('query')} />
+            <Button type="submit">Search</Button>
+          </HStack>
+        </form>
 
-        <Flex>hogehoge</Flex>
+        <Grid templateColumns="repeat(4,1fr)" templateRows="masony" gap="4">
+          {data &&
+            data.map((e) => (
+              <GridItem key={e.id}>
+                <PhotoCard photo={e}></PhotoCard>
+              </GridItem>
+            ))}
+        </Grid>
       </Stack>
     </Container>
   )

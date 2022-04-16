@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import {
   Container,
+  Link,
   Heading,
   Box,
   Grid,
@@ -42,8 +43,13 @@ const Home: NextPage = () => {
   }
 
   return (
-    <Container maxWidth="container.lg" minH="100vh">
-      <Stack>
+    <Container
+      display="flex"
+      flexDirection="column"
+      maxWidth="container.lg"
+      minH="100vh"
+    >
+      <Stack flex="1">
         <HStack spacing="4" py="2">
           <Heading
             flex="1"
@@ -84,12 +90,29 @@ const Home: NextPage = () => {
 
         <form onSubmit={handleSubmit(handleSearchSubmit)}>
           <HStack align="baseline">
-            <Input id="query" placeholder="Search" {...register('query')} />
+            <Input
+              id="query"
+              placeholder="Search"
+              autoFocus
+              spellCheck={false}
+              {...register('query')}
+            />
             <Button type="submit">Search</Button>
           </HStack>
         </form>
 
-        <Grid templateColumns="repeat(4,1fr)" templateRows="masony" gap="4">
+        <Grid
+          placeItems="center"
+          templateColumns={{
+            base: 'repeat(2,1fr)',
+            sm: 'repeat(2,1fr)',
+            md: 'repeat(3,1fr)',
+            lg: 'repeat(4,1fr)',
+            xl: 'repeat(4,1fr)',
+            '2xl': 'repeat(6,1fr)',
+          }}
+          gap="4"
+        >
           {data &&
             data.map((e) => (
               <GridItem key={e.id}>
@@ -98,6 +121,23 @@ const Home: NextPage = () => {
             ))}
         </Grid>
       </Stack>
+
+      <Box p="4" textAlign="center">
+        <Stack>
+          <Box>
+            Copyright &copy;{' '}
+            <Link isExternal href="https://www.techtalk.jp/">
+              TechTalk Inc.
+            </Link>
+          </Box>
+
+          <Box>
+            <Link isExternal href="https://www.github.com/coji/lgtm-splash">
+              GitHub
+            </Link>
+          </Box>
+        </Stack>
+      </Box>
     </Container>
   )
 }

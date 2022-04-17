@@ -11,9 +11,13 @@ import {
   Image,
   Spacer,
   Center,
+  Stack,
   VStack,
+  HStack,
   Heading,
-  Text
+  Text,
+  Avatar,
+  Link
 } from '@chakra-ui/react'
 import type { Photo } from '~/interfaces/model'
 
@@ -39,18 +43,36 @@ export const PostDialog: React.FC<PostDialogProps> = ({
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>LGTM</ModalHeader>
+        <ModalHeader>LGTM Image</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Box position="relative">
-            <Image w="full" rounded="md" alt="image" src={photo.urls.thumb} />
-            <Center position="absolute" inset="0" color="white">
-              <VStack textShadow="md">
-                <Heading>LGTM</Heading>
-                <Text>Looks good to me.</Text>
-              </VStack>
-            </Center>
-          </Box>
+          <Stack>
+            <Box position="relative">
+              <Image w="full" rounded="md" alt="image" src={photo.urls.thumb} />
+              <Center position="absolute" inset="0" color="white">
+                <Box textAlign="center" fontFamily="serif">
+                  <Heading
+                    fontFamily="serif"
+                    fontSize="5xl"
+                    letterSpacing="wider"
+                  >
+                    LGTM
+                  </Heading>
+                  <Text fontSize="sm">Looks good to me.</Text>
+                </Box>
+              </Center>
+            </Box>
+
+            <Link
+              isExternal
+              href={`${photo.user.links.html}?utm_source=lgtm-splash&utm_medium=referral`}
+            >
+              <HStack fontSize="sm">
+                <Avatar size="xs" src={photo.user.profile_image.medium} />
+                <Text>{photo.user.name}</Text>
+              </HStack>
+            </Link>
+          </Stack>
         </ModalBody>
 
         <ModalFooter>

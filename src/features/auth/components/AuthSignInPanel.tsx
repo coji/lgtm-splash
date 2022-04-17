@@ -1,4 +1,4 @@
-import { SignInButton } from './AuthSIgnInButton'
+import { SignInButton } from './AuthSignInButton'
 import { Box } from '@chakra-ui/react'
 
 const LoginPanel: React.FC = () => {

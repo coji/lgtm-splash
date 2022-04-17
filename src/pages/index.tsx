@@ -1,26 +1,22 @@
 import type { NextPage } from 'next'
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { Container, Box, Stack, HStack, Input, Button } from '@chakra-ui/react'
-import { useUnsplashSearch } from '~/features/search/hooks/useUnsplashSearch'
+import { Container, Box, Stack } from '@chakra-ui/react'
 import { PhotoCard } from '~/features/search/components/PhotoCard'
 import type { Photo } from '~/interfaces/model'
 import { usePosts } from '~/features/posts/hooks/usePosts'
 import { AppHeader } from '~/components/AppHeader'
 import { AppFooter } from '~/components/AppFooter'
-
-interface SearchFormProps {
-  query: string
-}
+import { useUnsplashSearch } from '~/features/search/hooks/useUnsplashSearch'
+import {
+  SearchInput,
+  SearchInputFormProps
+} from '~/features/search/components/SearchInput'
 
 const Home: NextPage = () => {
-  const { register, handleSubmit } = useForm<SearchFormProps>()
-  const [query, setQuery] = useState<string>()
-  const { data, isLoading } = useUnsplashSearch(query)
+  const { searchQuery, setSearchQuery, data, isLoading } = useUnsplashSearch()
   const { mutate } = usePosts()
 
-  const handleSearchSubmit = (values: SearchFormProps) => {
-    setQuery(values.query)
+  const handleSearchSubmit = (values: SearchInputFormProps) => {
+    setSearchQuery(values.query)
   }
 
   const handleClickPhoto = (photo: Photo) => {
@@ -38,25 +34,11 @@ const Home: NextPage = () => {
       <Stack flex="1">
         <AppHeader />
 
-        <form onSubmit={handleSubmit(handleSearchSubmit)}>
-          <HStack align="baseline">
-            <Input
-              id="query"
-              type="search"
-              placeholder="Search"
-              autoFocus
-              spellCheck={false}
-              {...register('query')}
-            />
-            <Button type="submit" isLoading={isLoading}>
-              Search
-            </Button>
-          </HStack>
-        </form>
+        <SearchInput onSubmit={handleSearchSubmit} isLoading={isLoading} />
 
         {data && (
           <Box>
-            &quot;{query}&quot; Photos by Unsplash
+            &quot;{searchQuery}&quot; Photos by Unsplash
             {data.length > 0 ? (
               <Box gap="4" style={{ columnCount: 3 }}>
                 {data.map((e) => (

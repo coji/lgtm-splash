@@ -1,6 +1,5 @@
 import type { NextPage } from 'next'
 import { Container, Box, Stack } from '@chakra-ui/react'
-import { PhotoCard } from '~/features/search/components/PhotoCard'
 import type { Photo } from '~/interfaces/model'
 import { usePosts } from '~/features/posts/hooks/usePosts'
 import { AppHeader } from '~/components/AppHeader'
@@ -10,9 +9,15 @@ import {
   SearchInput,
   SearchInputFormProps
 } from '~/features/search/components/SearchInput'
+import { SearchResults } from '~/features/search/components/SearchResults'
 
 const Home: NextPage = () => {
-  const { searchQuery, setSearchQuery, data, isLoading } = useUnsplashSearch()
+  const {
+    searchQuery,
+    setSearchQuery,
+    data: searchResults,
+    isLoading
+  } = useUnsplashSearch()
   const { mutate } = usePosts()
 
   const handleSearchSubmit = (values: SearchInputFormProps) => {
@@ -35,25 +40,11 @@ const Home: NextPage = () => {
         <AppHeader />
 
         <SearchInput onSubmit={handleSearchSubmit} isLoading={isLoading} />
-
-        {data && (
-          <Box>
-            &quot;{searchQuery}&quot; Photos by Unsplash
-            {data.length > 0 ? (
-              <Box gap="4" style={{ columnCount: 3 }}>
-                {data.map((e) => (
-                  <PhotoCard
-                    key={e.id}
-                    photo={e}
-                    onClickPhoto={handleClickPhoto}
-                  />
-                ))}
-              </Box>
-            ) : (
-              <div>hoge</div>
-            )}
-          </Box>
-        )}
+        <SearchResults
+          query={searchQuery}
+          photos={searchResults}
+          onClickPhoto={handleClickPhoto}
+        />
       </Stack>
 
       <AppFooter />

@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
-import { Container, Box, Stack } from '@chakra-ui/react'
+import { useState } from 'react'
+import { Container, Stack, useDisclosure } from '@chakra-ui/react'
 import type { Photo } from '~/interfaces/model'
 import { usePosts } from '~/features/posts/hooks/usePosts'
 import { AppHeader } from '~/components/AppHeader'
@@ -10,6 +11,7 @@ import {
   SearchInputFormProps
 } from '~/features/search/components/SearchInput'
 import { SearchResults } from '~/features/search/components/SearchResults'
+import { PostDialog } from '~/features/posts/components/PostDialog'
 
 const Home: NextPage = () => {
   const {
@@ -24,9 +26,16 @@ const Home: NextPage = () => {
     setSearchQuery(values.query)
   }
 
+  const [selectedPhoto, setSelectedPhoto] = useState<Photo>()
+  const addPostDialog = useDisclosure()
   const handleClickPhoto = (photo: Photo) => {
-    console.log(photo)
+    setSelectedPhoto(photo)
+    addPostDialog.onOpen()
     //  mutate({ imageUrl: photo.urls.thumb })
+  }
+
+  const handleClickGenerate = (photo: Photo) => {
+    mutate({ imageUrl: photo.urls.thumb })
   }
 
   return (
@@ -45,6 +54,13 @@ const Home: NextPage = () => {
           photos={searchResults}
           onClickPhoto={handleClickPhoto}
         />
+
+        <PostDialog
+          isOpen={addPostDialog.isOpen}
+          onClose={addPostDialog.onClose}
+          onClickGenerate={handleClickGenerate}
+          photo={selectedPhoto}
+        ></PostDialog>
       </Stack>
 
       <AppFooter />

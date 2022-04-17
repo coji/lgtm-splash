@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react'
+import { Text, Box, Link } from '@chakra-ui/react'
 import { Photo } from '~/interfaces/model'
 import { PhotoCard } from '~/features/search/components/PhotoCard'
 
@@ -17,7 +17,13 @@ export const SearchResults: React.FC<SearchResultsProps> = ({
 
   return (
     <Box>
-      &quot;{query}&quot; Photos by Unsplash
+      <Text textAlign="right" fontSize="sm">
+        Photos by{' '}
+        <Link isExternal href="https://unsplash.com/">
+          Unsplash
+        </Link>
+      </Text>
+
       {photos.length > 0 ? (
         <Box gap="4" style={{ columnCount: 3 }}>
           {photos.map((photo) => (

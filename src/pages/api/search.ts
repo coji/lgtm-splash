@@ -15,6 +15,9 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<SearchResult>
 ) {
+  if (process.env.UNSPLASH_MOCKING)
+    return res.status(200).json(require('~/assets/photos.json'))
+
   const unsplash = createApi({
     accessKey: String(process.env.UNSPLASH_API_ACCESS_KEY)
   })

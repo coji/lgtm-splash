@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { getIdTokenFromReq } from '~/libs/api-side/auth-helper'
-import type { Post } from '~/features/posts/interfaces/posts'
+import type { Post } from '~/interfaces/model'
 import { PostConverter } from '~/libs/api-side/firestore-converter'
 import { firebase, firestore } from '~/libs/api-side/firebase-admin'
 

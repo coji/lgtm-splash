@@ -23,6 +23,7 @@ import { useAuthAction } from '~/features/auth/hooks/useAuthAction'
 import { SignInButton } from '~/features/auth/components/AuthSIgnInButton'
 import { useUnsplashSearch } from '~/features/search/hooks/useUnsplashSearch'
 import { PhotoCard } from '~/features/search/components/PhotoCard'
+import type { Photo } from '~/interfaces/model'
 import { usePosts } from '~/features/posts/hooks/usePosts'
 interface SearchFormProps {
   query: string
@@ -40,9 +41,9 @@ const Home: NextPage = () => {
     setQuery(values.query)
   }
 
-  const handlePostPhoto = (imageUrl: string) => {
-    console.log(imageUrl)
-    mutate({ imageUrl })
+  const handleClickPhoto = (photo: Photo) => {
+    console.log(photo)
+    //  mutate({ imageUrl: photo.urls.thumb })
   }
 
   return (
@@ -112,7 +113,7 @@ const Home: NextPage = () => {
               <PhotoCard
                 key={e.id}
                 photo={e}
-                onPostPhoto={handlePostPhoto}
+                onClickPhoto={handleClickPhoto}
               ></PhotoCard>
             ))}
           </Box>

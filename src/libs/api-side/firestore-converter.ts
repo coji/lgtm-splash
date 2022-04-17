@@ -1,4 +1,4 @@
-import { Post } from '~/features/posts/interfaces/posts'
+import { Post } from '~/interfaces/model'
 import {
   DocumentData,
   FirestoreDataConverter,

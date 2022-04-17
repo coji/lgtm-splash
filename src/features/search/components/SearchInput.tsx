@@ -30,6 +30,7 @@ export const SearchInput: React.FC<SearchInputProps> = ({
           placeholder="Search"
           autoFocus
           spellCheck={false}
+          autoComplete="off"
           {...register('query')}
         />
         <Button type="submit" isLoading={isLoading}>

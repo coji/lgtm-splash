@@ -1,22 +1,19 @@
 import { Button, ButtonProps } from '@chakra-ui/react'
-import { FaGithub, FaGoogle } from 'react-icons/fa'
+import { FaGithub } from 'react-icons/fa'
 import { useAuthAction } from '../hooks/useAuthAction'
 
 interface Props extends ButtonProps {
-  loginMethod: 'google' | 'github'
+  loginMethod: 'github'
 }
 export const SignInButton: React.FC<Props> = ({ loginMethod, ...rest }) => {
   let icon = null
-  const { signInWithGoogle, signInWithGithub } = useAuthAction()
+  const { signInWithGithub } = useAuthAction()
   let loginFunction: null | (() => Promise<void>) = null
   switch (loginMethod) {
-    case 'google':
-      icon = <FaGoogle />
-      loginFunction = signInWithGoogle
-      break
     case 'github':
       icon = <FaGithub />
       loginFunction = signInWithGithub
+      break
   }
 
   return (

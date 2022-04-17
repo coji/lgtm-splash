@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react'
 import { useAuth } from '~/features/auth/hooks/useAuth'
 import { useAuthAction } from '~/features/auth/hooks/useAuthAction'
-import { SignInButton } from '~/features/auth/components/AuthSIgnInButton'
+import { SignInButton } from '~/features/auth/components/AuthSignInButton'
 
 export const AppHeader: React.FC = () => {
   const { currentUser, isAuthChecking } = useAuth()
@@ -22,8 +22,7 @@ export const AppHeader: React.FC = () => {
     <HStack spacing="4" py="2">
       <Heading
         flex="1"
-        bgGradient="linear(to-r, #ffa000, #ff0000)"
-        bgClip="text"
+        color="orange.400"
         fontSize="4xl"
         fontWeight="extrabold"
         fontStyle="italic"
@@ -36,8 +35,8 @@ export const AppHeader: React.FC = () => {
           <MenuButton
             as={Avatar}
             boxSize="10"
-            name={currentUser.displayName || currentUser.email || undefined}
-            src={currentUser.photoURL || undefined}
+            name={currentUser.displayName || undefined}
+            src={currentUser.photoURL}
             _hover={{ cursor: 'pointer' }}
           ></MenuButton>
           <MenuList>

@@ -23,7 +23,6 @@ import { useAuthAction } from '~/features/auth/hooks/useAuthAction'
 import { SignInButton } from '~/features/auth/components/AuthSIgnInButton'
 import { useUnsplashSearch } from '~/features/search/hooks/useUnsplashSearch'
 import { PhotoCard } from '~/features/search/components/PhotoCard'
-import type { Photo } from '~/features/search/interfaces/photo'
 import { usePosts } from '~/features/posts/hooks/usePosts'
 interface SearchFormProps {
   query: string
@@ -34,7 +33,7 @@ const Home: NextPage = () => {
   const { signOut } = useAuthAction()
   const { register, handleSubmit } = useForm<SearchFormProps>()
   const [query, setQuery] = useState<string>()
-  const { data, isLoading, error } = useUnsplashSearch(query)
+  const { data, isLoading } = useUnsplashSearch(query)
   const { mutate } = usePosts()
 
   const handleSearchSubmit = (values: SearchFormProps) => {

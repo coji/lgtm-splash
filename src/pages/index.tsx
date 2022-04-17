@@ -96,6 +96,7 @@ const Home: NextPage = () => {
           <HStack align="baseline">
             <Input
               id="query"
+              type="search"
               placeholder="Search"
               autoFocus
               spellCheck={false}
@@ -108,14 +109,21 @@ const Home: NextPage = () => {
         </form>
 
         {data && (
-          <Box gap="4" style={{ columnCount: 3 }}>
-            {data.map((e) => (
-              <PhotoCard
-                key={e.id}
-                photo={e}
-                onClickPhoto={handleClickPhoto}
-              ></PhotoCard>
-            ))}
+          <Box>
+            &quot;{query}&quot; Photos by Unsplash
+            {data.length > 0 ? (
+              <Box gap="4" style={{ columnCount: 3 }}>
+                {data.map((e) => (
+                  <PhotoCard
+                    key={e.id}
+                    photo={e}
+                    onClickPhoto={handleClickPhoto}
+                  />
+                ))}
+              </Box>
+            ) : (
+              <div>hoge</div>
+            )}
           </Box>
         )}
       </Stack>

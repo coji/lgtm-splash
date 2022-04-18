@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import {
   Modal,
   ModalOverlay,
@@ -24,7 +25,7 @@ import type { Photo } from '~/interfaces/model'
 interface PostDialogProps {
   isOpen: boolean
   onClose: () => void
-  onClickGenerate: (photo: Photo) => void
+  onClickGenerate: (photo: Photo, width: string, height: string) => void
   photo?: Photo
 }
 export const PostDialog: React.FC<PostDialogProps> = ({
@@ -33,8 +34,15 @@ export const PostDialog: React.FC<PostDialogProps> = ({
   onClickGenerate,
   photo
 }) => {
+  const imageRef = useRef<HTMLImageElement>(null!)
+
   const handleClickGenerate = () => {
-    if (photo) onClickGenerate(photo)
+    if (photo)
+      onClickGenerate(
+        photo,
+        imageRef.current.width.toString(),
+        imageRef.current.height.toString()
+      )
     onClose()
   }
 
@@ -48,7 +56,14 @@ export const PostDialog: React.FC<PostDialogProps> = ({
         <ModalBody>
           <Stack>
             <Box position="relative">
-              <Image w="full" rounded="md" alt="image" src={photo.urls.thumb} />
+              <Image
+                ref={imageRef}
+                mx="auto"
+                w="400px"
+                rounded="md"
+                alt="image"
+                src={photo.urls.regular}
+              />
               <Center position="absolute" inset="0" color="white">
                 <Box textAlign="center" fontFamily="serif">
                   <Heading

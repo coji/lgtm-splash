@@ -34,8 +34,8 @@ const Home: NextPage = () => {
     //  mutate({ imageUrl: photo.urls.thumb })
   }
 
-  const handleClickGenerate = (photo: Photo) => {
-    mutate({ imageUrl: photo.urls.thumb })
+  const handleClickGenerate = (photo: Photo, width: string, height: string) => {
+    mutate({ imageUrl: photo.urls.thumb, width, height })
   }
 
   return (

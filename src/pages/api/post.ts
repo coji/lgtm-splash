@@ -19,7 +19,9 @@ export default async function handler(
   const ret = await firestore.collection('posts').add({
     email: verified.email,
     uid: verified.uid,
-    imageUrl: req.body.post.imageUrl,
+    imageUrl: String(req.body.post.imageUrl),
+    width: String(req.body.post.width),
+    height: String(req.body.post.height),
     createdAt: firebase.firestore.FieldValue.serverTimestamp()
   })
 

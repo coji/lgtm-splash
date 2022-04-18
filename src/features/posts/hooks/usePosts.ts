@@ -10,6 +10,7 @@ export const usePosts = () => {
 
   const mutation = useMutation(async (post: PostProps) => {
     if (!currentUser) return
+
     const token = await currentUser.getIdToken()
     return ky.post('/api/post', {
       headers: {

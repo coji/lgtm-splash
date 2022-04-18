@@ -28,12 +28,19 @@ const Content: React.FC<Props> = ({ post }) => {
           alt="image"
           src={post.imageUrl}
         />
-        <Center position="absolute" inset="0" color="white">
+        <Center position="absolute" inset="0">
           <Box textAlign="center" fontFamily="serif">
-            <Heading fontFamily="serif" fontSize="5xl" letterSpacing="wider">
+            <Heading
+              fontFamily="serif"
+              fontSize="5xl"
+              letterSpacing="wider"
+              color="white"
+            >
               LGTM
             </Heading>
-            <Text fontSize="sm">Looks good to me.</Text>
+            <Text fontSize="sm" color="white">
+              Looks good to me.
+            </Text>
           </Box>
         </Center>
       </Box>
